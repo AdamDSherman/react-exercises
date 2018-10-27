@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      var CounterChallenge = React.createClass({
+
+        getInitialState: function() {
+          return{
+            total: 0
+          }
+        },
+
+        resetName: function(event) {
+          console.log('resetName Function fired');
+          this.setState({
+            name: ''
+          })
+        },
+
+        incrementCount: function(value) {
+          console.log(this);
+          this.setState({
+            total: this.state.total + value
+          })
+        },
+
+        render: function() {
+          return (
+            <div>
+              <h1>Count: {this.state.total}</h1>
+              <button onClick={this.incrementCount.bind(this, 1)}>Add 1</button>
+              <button onClick={this.incrementCount.bind(this, 5)}>Add 5</button>
+              <button onClick={this.incrementCount.bind(this, 10)}>Add 10</button>
+            </div>
+          )
+        }
+      });
+
+      var Button = function(props) {
+        return (
+          <button value={props.value} onClick={props.clickHandler}>Add {props.value}</button>
+        )
+      }
+
+      ReactDOM.render(
+        <CounterChallenge/>,
+        document.getElementById('app')
+      )
+    </script>
+  </body>
+</html>
