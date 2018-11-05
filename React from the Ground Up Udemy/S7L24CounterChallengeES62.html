@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class Counter extends React.Component {
+
+        constructor(props) {
+          super(props);
+          this.state = {
+            total: 0
+          };
+          this.click = this.click.bind(this);
+        }
+
+        click(value) {
+          console.log(value);
+          //alert("clicked");
+          this.setState({
+            total: this.state.total + value
+          })
+        }
+
+        render() {
+          return(
+            <div className="container">
+              <h1>Count: {this.state.total}</h1>
+              <Button className="btn" text={`${this.props.text} ${this.props.valueOne}`} value={this.props.valueOne} clickHandler={() => this.click(this.props.valueOne)} />
+              <Button className="btn" text={`${this.props.text} ${this.props.valueTwo}`} value={this.props.valueTwo} clickHandler={() => this.click(this.props.valueTwo)} />
+              <Button className="btn" text={`${this.props.text} ${this.props.valueThree}`} value={this.props.valueThree} clickHandler={() => this.click(this.props.valueThree)} />
+            </div>
+          )
+        }
+      }
+
+      Counter.defaultProps = {
+        text: 'Add',
+        valueOne: 1,
+        valueTwo: 5,
+        valueThree: 10,
+      }
+
+      const Button = (props) => {
+        return (
+          <button className={props.className} onClick={props.clickHandler}>{props.text}</button>
+        )
+      }
+
+      Button.propTypes = {
+        text: React.PropTypes.string,
+        style: React.PropTypes.string,
+        value: React.PropTypes.number,
+        clickHandler: React.PropTypes.func.isRequired,
+      }
+
+      ReactDOM.render(
+        <Counter />,
+        document.getElementById('app')
+      )
+    </script>
+  </body>
+</html>
+ 
