@@ -1,0 +1,22 @@
+{
+  "name": "s8l27nodeproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "webpack": "^4.25.1",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
