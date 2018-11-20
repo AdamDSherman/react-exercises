@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'whatwg-fetch';
+import PokeList from './components/PokeList';
+import { Col } from 'react-bootstrap/lib/';
 
 class App extends Component {
 
@@ -41,20 +43,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Col sm={8} md={10} smOffset={2} mdOffset={1} >
+          <PokeList listOfPokemon={this.state.pokemon} />
+        </Col>
       </div>
     );
   }
