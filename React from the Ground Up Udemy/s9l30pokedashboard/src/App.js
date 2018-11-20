@@ -4,6 +4,8 @@ import './App.css';
 import 'whatwg-fetch';
 import PokeList from './components/PokeList';
 import { Col } from 'react-bootstrap/lib/';
+import { Pagination } from '@react-bootstrap/pagination/lib/';
+
 
 class App extends Component {
 
@@ -11,23 +13,29 @@ class App extends Component {
     super(props);
 
     this.state = {
-      pokemon: [
-      ]
+      pokemon: [],
+      activePage: 0,
+      limit: 50,
+      offset: 0,
+      totalPages: 0
     };
 
     this.loadPokemon = this.loadPokemon.bind(this);
+    this.handlePaginationSelect = this.handlePaginationSelect.bind(this);
   }
 
   loadPokemon(url) {
-    //fetch(`${this.props.baseUrl}/pokemon/1`)
     fetch(url)
       .then(response => {
         return response.json();
       })
       .then(json => {
-        console.log(json);
+        let pages = Math.round(json.count / this.state.limit);
+
         this.setState({
-          pokemon: json.results
+          pokemon: json.results,
+          totalPages: pages,
+          count: json.count,
         });
         console.log(this.state);
       })
@@ -37,7 +45,13 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.loadPokemon(`${this.props.baseUrl}/pokemon/`);
+    this.loadPokemon(`${this.props.baseUrl}/pokemon/?limit=${this.state.limit}&offset=${this.state.offset}`);
+  }
+
+  handlePaginationSelect(selectedPage) {
+    console.log(selectedPage);
+    let offset = this.state.limit * selectedPage;
+    this.loadPokemon(`${this.props.baseUrl}/pokemon/?limit=${this.state.limit}&offset=${offset}`);
   }
 
   render() {
@@ -45,6 +59,14 @@ class App extends Component {
       <div className="App">
         <Col sm={8} md={10} smOffset={2} mdOffset={1} >
           <PokeList listOfPokemon={this.state.pokemon} />
+        </Col>
+        <Col sm={12}>
+          <Pagination 
+            bsSize="small"
+            items={this.state.totalPages}
+            active={this.state.activePage}
+            onSelect={this.handlePaginationSelect}
+          />
         </Col>
       </div>
     );
