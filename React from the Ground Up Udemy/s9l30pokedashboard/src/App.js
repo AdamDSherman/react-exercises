@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'whatwg-fetch';
 import PokeList from './components/PokeList';
+import SelectItemsPerPageButtons from './components/SelectItemsPerPageButtons';
 import { Col } from 'react-bootstrap/lib/';
 import { Pagination } from '@react-bootstrap/pagination/lib/';
 
@@ -14,14 +15,16 @@ class App extends Component {
 
     this.state = {
       pokemon: [],
-      activePage: 0,
+      activePage: 1,
       limit: 50,
       offset: 0,
-      totalPages: 0
+      totalPages: 0,
+      count: 0
     };
 
     this.loadPokemon = this.loadPokemon.bind(this);
     this.handlePaginationSelect = this.handlePaginationSelect.bind(this);
+    this.handleLimitChange = this.handleLimitChange.bind(this);
   }
 
   loadPokemon(url) {
@@ -49,14 +52,28 @@ class App extends Component {
   }
 
   handlePaginationSelect(selectedPage) {
-    console.log(selectedPage);
     let offset = this.state.limit * selectedPage;
     this.loadPokemon(`${this.props.baseUrl}/pokemon/?limit=${this.state.limit}&offset=${offset}`);
+    console.log(selectedPage);
+     
+  }
+
+  handleLimitChange(event) {
+    this.setState({
+      limit: +event.target.innerHTML || this.state.count,
+      activePage: 1
+    }, () => {
+      this.loadPokemon(`${this.props.baseUrl}/pokemon/?limit=${this.state.limit}&offset=0`);
+    });
+    console.log(this.state.limit);
   }
 
   render() {
     return (
       <div className="App">
+
+        <SelectItemsPerPageButtons options={[10,50,100,200]} selectedValue={this.state.limit} allValue={this.state.count} onOptionSelected={this.handleLimitChange} />
+
         <Col sm={8} md={10} smOffset={2} mdOffset={1} >
           <PokeList listOfPokemon={this.state.pokemon} />
         </Col>
@@ -64,7 +81,7 @@ class App extends Component {
           <Pagination 
             bsSize="small"
             items={this.state.totalPages}
-            active={this.state.activePage}
+            activePage={this.state.activePage}
             onSelect={this.handlePaginationSelect}
           />
         </Col>
