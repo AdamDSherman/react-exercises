@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@react-bootstrap/pagination": "^1.0.0",
+    "chart.js": "^1.1.1",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
+    "react-chartjs": "^1.2.0",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"
   },

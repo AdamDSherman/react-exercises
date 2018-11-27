@@ -6,7 +6,7 @@ const SelectItemsPerPageButton = ({options, onOptionSelected, selectedValue, all
 	return (
 		<Col sm={12}>
 			{options.map((option) => {
-				console.log("Items per page matcher " + selectedValue, option);
+				//console.log("Items per page matcher " + selectedValue, option);
 				return <Button key={option} onClick={onOptionSelected} bsStyle={selectedValue === option ? 'primary' : 'default'}>{option}</Button>
 			})}
 			{allValue ? <Button key={allValue} onClick={onOptionSelected} bsStyle={selectedValue === allValue ? 'primary' : 'default'}>All</Button> : false}

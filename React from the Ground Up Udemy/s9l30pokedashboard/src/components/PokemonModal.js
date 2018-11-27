@@ -1,36 +1,36 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap/lib/';
+import PokemonInfo from './PokemonInfo';
 
-const PokemonModal = ({openModal, showModal, closeModal, pokemon}) => {
-	return (
-		<div>
-     <Button
-      bsStyle="primary"
-      bsSize="large"
-      onClick={openModal}
-    >
-      Launch contained modal
-    </Button>
+const PokemonModal = ({showModal, closeModal, pokemon}) => {
+	if(pokemon && Object.keys(pokemon).length !== 0) {
+		return (
+			<div>
 
-    <Modal
-      show={showModal}
-      onHide={closeModal}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title">
-          Contained Modal
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        Elit est explicabo ipsum eaque dolorem blanditiis doloribus sed id
-        ipsam, beatae, rem fuga id earum? Inventore et facilis obcaecati.
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={closeModal}>Close</Button>
-      </Modal.Footer>
-    </Modal>
-    </div>
-	)
+	    <Modal
+	      show={showModal}
+	      onHide={closeModal}
+	    >
+	      <Modal.Header closeButton>
+	        <Modal.Title id="contained-modal-title">
+	          {pokemon !== null ? pokemon.species.name : 'Loading...'}
+	        </Modal.Title>
+	      </Modal.Header>
+	      <Modal.Body>
+	      	{ 
+	      		pokemon !== null ? 
+	      		<PokemonInfo pokemon={pokemon} />
+	      		: null
+	      	}
+	      </Modal.Body>
+	      <Modal.Footer>
+	        <Button onClick={closeModal}>Close</Button>
+	      </Modal.Footer>
+	    </Modal>
+	    </div>
+		)
+	}
+  return null;
 }
 
 export default PokemonModal;
