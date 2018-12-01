@@ -1,15 +1,21 @@
 import React from 'react';
 import { Radar } from 'react-chartjs';
 
-const PokemonInfo=({pokemon}) => {
+let capitalise = (string) => {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
-	const labels = pokemon.stats.map((info) => {
-		return info.stat.name;
-	});
+const PokemonInfo=({pokemon}) => {
 
 	const data = pokemon.stats.map((info) => {
 		return info.base_stat;
 	});
+
+	const labels = pokemon.stats.map((info) => {
+		return capitalise(info.stat.name);
+	});
+
+	// Try use componentDidUPdate here to limit multiple rederns
 
 	let charData = {
 		labels: labels,
@@ -26,10 +32,11 @@ const PokemonInfo=({pokemon}) => {
 		]
 	}
 
-	console.log("run");
+	console.log(charData.labels);
 
 	return (
 		<div>
+			<img src={pokemon.sprites.front_default} alt={pokemon.name}/>
 			<Radar data={charData} width="300" height="250" />
 		</div>
 	)
